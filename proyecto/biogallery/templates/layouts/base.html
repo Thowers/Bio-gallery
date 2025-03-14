@@ -1,0 +1,73 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="assets/imagenes/Favicon.png" type="image/x-icon">
+    <title>{% block title %} Bio-Gallery {% endblock %}</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="{% static 'main/style.css' %}" rel="stylesheet">
+    <script src="{% static 'main/logica.js' %}"></script>
+</head>
+<body>   
+    {% include "includes/header.html" %}
+    <!-- Contenido Principal -->
+    <div class="main-content">
+        <div class="container py-4">
+            <div class="row mb-4">
+                <div class="col">
+                    <h2 class="text-center">Colección de Fotos</h2>
+                    <p class="text-center text-muted">Explora nuestra galería de imágenes</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- 9 tarjetas con contenido diferente -->
+                <div class="col-md-4">
+                    <div class="thumbnail-card">
+                        <div class="thumbnail-img" data-image="{% static 'main/imagenes/imagen1.jpg' %}">
+                            <img src="{% static 'main/imagenes/imagen1.jpg' %}" alt="Thumbnail 1" class="img-fluid">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="thumbnail-card">
+                        <div class="thumbnail-img" data-image="{% static 'main/imagenes/imagen2.jpg' %}">
+                            <img src="{% static 'main/imagenes/imagen2.jpg' %}" alt="Thumbnail 2" class="img-fluid">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="thumbnail-card">
+                        <div class="thumbnail-img" data-image="{% static 'main/imagenes/imagen3.jpg' %}">
+                            <img src="{% static 'main/imagenes/imagen3.jpg' %}" alt="Thumbnail 3" class="img-fluid">
+                        </div>
+                    </div>
+                </div>                
+            </div>
+        </div>
+    </div>
+
+    <div id="imageModal" class="image-modal">
+        <div class="modal-content-wrapper">
+            <span class="close-modal">&times;</span>
+            <img id="modalImage" class="modal-image" src="" alt="Modal Image">
+            <div id="modalDescription" class="modal-description">
+                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Laborum minima ratione sit, consequatur sapiente a libero officia dolor dolorem, ad voluptas iure quia, iste sunt recusandae ipsam aperiam incidunt. Tempora!</p>
+            </div>
+            <div class="modal-buttons text-center mt-3">
+                <button type="button" class="btn btn-success me-2">Si</button>
+                <button type="button" class="btn btn-danger">No</button>
+            </div>
+        </div>
+    </div>
+
+    {% include "includes/footer.html" %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+    
+</body>
+</html>
