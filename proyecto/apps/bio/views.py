@@ -1,6 +1,6 @@
+from django.shortcuts import render
 from .models import Imagen
 
-# Create your views here.
-def imagenes(request):
-    mis_imagenes = Imagen.objects.all()
-    return render(request,"pages/imagenes.html",{"imagenes":mis_imagenes})
+def bio(request):
+    imagenes = Imagen.objects.all()
+    return render(request, 'pages/bio.html', {'imagenes':imagenes})
