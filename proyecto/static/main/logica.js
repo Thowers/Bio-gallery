@@ -1,23 +1,21 @@
 document.addEventListener('DOMContentLoaded', function() {
     const modal = document.getElementById('imageModal');
     const modalImg = document.getElementById('modalImage');
-    const thumbnailImgs = document.querySelectorAll('.thumbnail-img');
+    const modalQuestion = document.getElementById('modalQuestion'); // Nuevo elemento
+    const modalDescription = document.getElementById('modalDescription');
+    const closeBtn = document.querySelector('.close-modal');
 
-    // Función para abrir el modal con la imagen específica
-    function openModal(imageSrc) {
-        modal.style.display = 'block';
-        modalImg.src = imageSrc;
-        document.body.style.overflow = 'hidden';
-    }
-
-    // Asignar el evento click a cada thumbnail
-    thumbnailImgs.forEach(thumbnail => {
-        thumbnail.addEventListener('click', function() {
-            const imageSrc = this.dataset.image; // Lee el atributo data-image
-            openModal(imageSrc);
+    document.querySelectorAll('.open-modal').forEach(img => {
+        img.addEventListener('click', function() {
+            const imageSrc = this.dataset.image;
+            const description = this.dataset.description;
+            const pregunta = this.dataset.pregunta;
+            modalImg.src = imageSrc;
+            modalQuestion.textContent = pregunta; // Mostrar pregunta
+            modalDescription.textContent = description;
+            modal.style.display = 'flex';
         });
     });
-
     // Función para cerrar el modal
     function closeModal() {
         modal.style.display = 'none';
@@ -25,7 +23,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Cerrar modal con el botón de cierre
-    const closeBtn = document.querySelector('.close-modal');
     closeBtn.addEventListener('click', closeModal);
 
     // Cerrar modal al hacer clic fuera del contenido
@@ -37,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Cerrar modal con la tecla ESC
     document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && modal.style.display === 'block') {
+        if (e.key === 'Escape' && modal.style.display === 'flex') {
             closeModal();
         }
     });
