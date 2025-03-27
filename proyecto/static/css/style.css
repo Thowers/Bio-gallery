@@ -12,42 +12,57 @@ body {
     min-height: 100vh;
 }
 
-/* Estilos generales */
+/* Estilos para la galería */
+.gallery-container {
+    padding: 2rem 15px;
+}
+
+.row-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+}
+
 .thumbnail-card {
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
     transition: transform 0.3s ease;
+    width: 100%;
+    max-width: 350px;
+    height: 250px;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 
 .thumbnail-card:hover {
     transform: translateY(-5px);
+    box-shadow: 0 6px 8px rgba(0,0,0,0.15);
 }
 
 .thumbnail-img {
     width: 100%;
-    height: 200px;
-    background-color: #ffffff; /* backgroung tarjetas */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    margin-bottom: 1rem;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
     border-radius: 8px;
     cursor: pointer;
 }
 
-.action-buttons {
-    display: flex;
-    gap: 0.5rem;
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .thumbnail-card {
+        max-width: calc(50% - 1rem);
+        height: 200px;
+    }
 }
 
-.action-buttons button {
-    padding: 0.25rem 1rem;
-    font-size: 0.875rem;
-}
-
-.time-indicator {
-    color: #6c757d;
-    font-size: 0.875rem;
+@media (max-width: 576px) {
+    .thumbnail-card {
+        max-width: 100%;
+        height: 250px;
+    }
 }
 
 /* Estilos de la navbar */
