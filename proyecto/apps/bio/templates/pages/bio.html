@@ -1,7 +1,7 @@
 {% extends "layouts/base.html" %}
 {% load static %}
 
-{% block title %}Bio-Gallery Galeria{% endblock %}
+{% block title %}Bio-Gallery Galería{% endblock %}
 
 {% block content %}
 <!-- Contenido Principal -->
@@ -15,45 +15,66 @@
         </div>
 
         <div class="row">
-            <!-- 9 tarjetas con contenido diferente -->
-            <div class="col-md-4">
-                <div class="thumbnail-card">
-                    <div class="thumbnail-img" data-image="{% static 'main/imagenes/imagen1.jpg' %}">
-                        <img src="{% static 'main/imagenes/imagen1.jpg' %}" alt="Thumbnail 1" class="img-fluid">
-                    </div>
-                </div>
+    {% for imagen in imagenes %}
+    <div class="col-md-4">
+        <div class="thumbnail-card">
+            <div class="thumbnail-img">
+                {% if imagen.bloqueada %}
+                <img src="{% static 'main/imagenes/locked.jpg' %}" alt="Imagen bloqueada" class="img-fluid open-modal"
+                    data-image="{% static 'main/imagenes/locked.jpg' %}" 
+                    data-description="Imagen bloqueada"
+                    data-pregunta="¿Deseas desbloquear esta imagen?">
+                {% else %}
+                <img src="{{ imagen.imageurl }}" alt="{{ imagen.nombre }}" class="img-fluid open-modal"
+                    data-image="{{ imagen.imageurl }}" 
+                    data-description="{{ imagen.descripcion }}"
+                    data-pregunta="{{ imagen.pregunta }}">
+                {% endif %}
             </div>
-
-            <div class="col-md-4">
-                <div class="thumbnail-card">
-                    <div class="thumbnail-img" data-image="{% static 'main/imagenes/imagen2.jpg' %}">
-                        <img src="{% static 'main/imagenes/imagen2.jpg' %}" alt="Thumbnail 2" class="img-fluid">
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="thumbnail-card">
-                    <div class="thumbnail-img" data-image="{% static 'main/imagenes/imagen3.jpg' %}">
-                        <img src="{% static 'main/imagenes/imagen3.jpg' %}" alt="Thumbnail 3" class="img-fluid">
-                    </div>
-                </div>
-            </div>                
         </div>
+    </div>
+    {% endfor %}
+</div>
     </div>
 </div>
 
-<div id="imageModal" class="image-modal">
+<!-- Modal -->
+<div id="imageModal" class="image-modal" style="display: none;">
     <div class="modal-content-wrapper">
-        <span class="close-modal">&times;</span>
+        <span class="close-modal" onclick="cerrarModal()">&times;</span>
         <img id="modalImage" class="modal-image" src="" alt="Modal Image">
-        <div id="modalDescription" class="modal-description">
-            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Laborum minima ratione sit, consequatur sapiente a libero officia dolor dolorem, ad voluptas iure quia, iste sunt recusandae ipsam aperiam incidunt. Tempora!</p>
-        </div>
+        <div id="modalDescription" class="modal-description"></div>
+        <div id="modalQuestion" class="modal-question mb-3"></div>
         <div class="modal-buttons text-center mt-3">
-            <button type="button" class="btn btn-success me-2">Si</button>
+            <button type="button" class="btn btn-success me-2">Sí</button>
             <button type="button" class="btn btn-danger">No</button>
         </div>
     </div>
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const modal = document.getElementById("imageModal");
+        const modalImage = document.getElementById("modalImage");
+        const modalDescription = document.getElementById("modalDescription");
+        const modalQuestion = document.getElementById("modalQuestion");
+
+        document.querySelectorAll(".open-modal").forEach(img => {
+            img.addEventListener("click", function () {
+                modalImage.src = this.dataset.image;
+                modalDescription.textContent = this.dataset.description;
+                modalQuestion.textContent = this.dataset.pregunta;
+                modal.style.display = "block";
+            });
+        });
+
+        document.querySelector(".close-modal").addEventListener("click", function () {
+            modal.style.display = "none";
+        });
+    });
+
+    function cerrarModal() {
+        document.getElementById("imageModal").style.display = "none";
+    }
+</script>
 {% endblock %}
