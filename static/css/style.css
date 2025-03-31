@@ -1,0 +1,155 @@
+main{
+    display: grid;
+    min-height: 100dvh;
+    grid-template-rows: auto 1fr auto;
+}
+
+html, body {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.main-content {
+    flex: 1;
+}
+
+body {
+    min-height: 100vh;
+}
+
+/* Estilos para la galería */
+.gallery-container {
+    padding: 2rem 15px;
+}
+
+.row-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.thumbnail-card {
+    margin-bottom: 1rem;
+    transition: transform 0.3s ease;
+    width: 100%;
+    max-width: 350px;
+    height: 250px;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.thumbnail-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 8px rgba(0,0,0,0.15);
+}
+
+.thumbnail-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .thumbnail-card {
+        max-width: calc(50% - 1rem);
+        height: 200px;
+    }
+}
+
+@media (max-width: 576px) {
+    .thumbnail-card {
+        max-width: 100%;
+        height: 250px;
+    }
+}
+
+/* Estilos de la navbar */
+.navbar-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+/* Estilos del contenido principal */
+.main-content {
+    min-height: calc(100vh - 250px);
+}
+
+/* Estilos del footer */
+.footer {
+    background-color: #f8f9fa;
+    padding: 2rem 0;
+    text-align: center;
+    width: 100%;
+    position: sticky;
+}
+
+
+.social-icons {
+    font-size: 1.5rem;
+}
+
+.social-icons a {
+    color: #6c757d;
+    margin: 0 10px;
+    transition: color 0.3s ease;
+}
+
+.social-icons a:hover {
+    color: #0d6efd;
+}
+
+/* Estilos del modal */
+.image-modal {
+    display: none; 
+    position: fixed; 
+    z-index: 1000; 
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.9);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content-wrapper {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 80%;
+    max-height: 80%;
+    overflow: auto;
+}
+
+.modal-image {
+    max-width: 100%;
+    max-height: 400px;
+    margin-bottom: 15px;
+}
+
+.modal-description {
+    color: black;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.close-modal {
+    color: #aaa;
+    position: absolute;
+    top: 10px;
+    right: 25px;
+    font-size: 35px;
+    cursor: pointer;
+}
+
+.close-modal:hover {
+    color: black;
+}

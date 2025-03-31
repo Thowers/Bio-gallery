@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="assets/imagenes/Favicon.png" type="image/x-icon">
+    <title>{% block title %} Bio-Gallery Inicio {% endblock %}</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="{% static 'main/logica.js' %}"></script>
+</head>
+
+<body>
+    <div class="main">
+        <header>
+            {% include "includes/header.html" %}
+        </header>
+        <main class="prueba">{% block content %} {% endblock %}</main>
+
+        <footer>
+            {% include "includes/footer.html" %}
+        </footer>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>
