@@ -6,46 +6,73 @@
 {% block content %}
 <!-- Contenido Principal -->
 <div class="main-content">
-    <div class="container py-4">
-        <div class="row mb-4">
-            <div class="col">
-                <h2 class="text-center">Colección de Fotos</h2>
-                <p class="text-center text-muted">Explora nuestra galería de imágenes</p>
-            </div>
+    <div class="gallery-container">
+        <div class="header-section text-center mb-5">
+            <h1 class="display-4">Galería de Naturaleza y Comunidades</h1>
+            <p class="lead text-muted">Explora la riqueza cultural y natural de Colombia</p>
         </div>
 
-        <div class="row">
+        <div class="row-gallery">
             {% for imagen in imagenes %}
-            <div class="col-md-4">
-                <div class="thumbnail-card">
-                    <div class="thumbnail-img">
-                        {% if imagen.bloqueada %}
-                        <img src="{% static 'main/imagenes/locked.jpg' %}" alt="Imagen bloqueada"
-                            class="img-fluid open-modal" data-image="{% static 'main/imagenes/locked.jpg' %}"
-                            data-description="Imagen bloqueada" data-pregunta="¿Deseas desbloquear esta imagen?">
-                        {% else %}
-                        <img src="{{ imagen.imageurl }}" alt="{{ imagen.nombre }}" class="img-fluid open-modal"
-                            data-image="{{ imagen.imageurl }}" data-description="{{ imagen.descripcion }}"
-                            data-pregunta="{{ imagen.pregunta }}">
-                        {% endif %}
-                    </div>
+            <div class="thumbnail-card">
+                <div class="thumbnail-img-container">
+                    {% if imagen.bloqueada %}
+                    <img src="{% static 'main/imagenes/locked.jpg' %}" alt="Imagen bloqueada"
+                        class="thumbnail-img open-modal" 
+                        data-image="{% static 'main/imagenes/locked.jpg' %}"
+                        data-description="Imagen bloqueada" 
+                        data-pregunta="¿Deseas desbloquear esta imagen?"
+                        data-title="Imagen bloqueada"
+                        data-id="{{ imagen.id }}">
+                    {% else %}
+                    <img src="{{ imagen.imageurl }}" alt="{{ imagen.nombre }}" class="thumbnail-img open-modal"
+                        data-image="{{ imagen.imageurl }}" 
+                        data-description="{{ imagen.descripcion }}"
+                        data-pregunta="{{ imagen.pregunta }}"
+                        data-title="{{ imagen.nombre }}"
+                        data-id="{{ imagen.id }}">
+                    {% endif %}
+                </div>
+                <div class="thumbnail-info">
+                    <h3 class="thumbnail-title">{{ imagen.nombre }}</h3>
+                    <p class="thumbnail-subtitle">{{ imagen.comunidad|default:"Colombia" }}</p>
                 </div>
             </div>
             {% endfor %}
+        </div>
+
+        <!-- Paginación -->
+        <div class="pagination">
+            <span class="step-links">
+                {% if imagenes.has_previous %}
+                    <a href="?page=1">&laquo; primera</a>
+                    <a href="?page={{ imagenes.previous_page_number }}">anterior</a>
+                {% endif %}
+
+                <span class="current">
+                    Página {{ imagenes.number }} de {{ imagenes.paginator.num_pages }}.
+                </span>
+
+                {% if imagenes.has_next %}
+                    <a href="?page={{ imagenes.next_page_number }}">siguiente</a>
+                    <a href="?page={{ imagenes.paginator.num_pages }}">última &raquo;</a>
+                {% endif %}
+            </span>
         </div>
     </div>
 </div>
 
 <!-- Modal -->
-<div id="imageModal" class="image-modal" style="display: none;">
+<div id="imageModal" class="image-modal">
     <div class="modal-content-wrapper">
-        <span class="close-modal" onclick="cerrarModal()">&times;</span>
-        <img id="modalImage" class="modal-image" src="" alt="Modal Image">
+        <span class="close-modal">&times;</span>
+        <img id="modalImage" class="modal-image" src="" alt="">
+        <h3 id="modalTitle" class="modal-title"></h3>
         <div id="modalDescription" class="modal-description"></div>
-        <div id="modalQuestion" class="modal-question mb-3"></div>
-        <div class="modal-buttons text-center mt-3">
-            <button type="button" class="btn btn-success me-2">Sí</button>
-            <button type="button" class="btn btn-danger">No</button>
+        <div id="modalQuestion" class="modal-question"></div>
+        <div class="modal-buttons">
+            <button type="button" class="btn btn-unlock">Sí, desbloquear</button>
+            <button type="button" class="btn btn-cancel">No, cancelar</button>
         </div>
     </div>
 </div>
