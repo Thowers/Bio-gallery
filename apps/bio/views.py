@@ -6,7 +6,7 @@ from .models import Imagen
 
 def bio(request):
     imagenes_list = Imagen.objects.all().order_by('id')
-    paginator = Paginator(imagenes_list, 10)  # Muestra 10 imágenes por página
+    paginator = Paginator(imagenes_list, 12)  # Muestra 10 imágenes por página
     
     page_number = request.GET.get('page')
     imagenes = paginator.get_page(page_number)

@@ -3,14 +3,15 @@ document.addEventListener('DOMContentLoaded', function() {
     const modal = document.getElementById('imageModal');
     const modalImg = document.getElementById('modalImage');
     const modalTitle = document.getElementById('modalTitle');
+    const modalCommunity = document.getElementById('modalCommunity');
     const modalDesc = document.getElementById('modalDescription');
-    const modalQuestion = document.getElementById('modalQuestion');
     const closeBtn = document.querySelector('.close-modal');
     const unlockBtn = document.querySelector('.btn-unlock');
     const cancelBtn = document.querySelector('.btn-cancel');
 
     // Variables de estado
     let currentImageId = null;
+    let isLockedImage = false;
 
     // Función para abrir el modal
     function openModal() {
@@ -18,50 +19,58 @@ document.addEventListener('DOMContentLoaded', function() {
         modal.style.display = 'flex';
         setTimeout(() => {
             modal.style.opacity = '1';
-            document.querySelector('.modal-content-wrapper').style.transform = 'translateY(0)';
         }, 10);
     }
 
     // Función para cerrar el modal
     function closeModal() {
         modal.style.opacity = '0';
-        document.querySelector('.modal-content-wrapper').style.transform = 'translateY(20px)';
         setTimeout(() => {
             modal.style.display = 'none';
             document.body.style.overflow = 'auto';
-            // Resetear los valores del modal
-            modalImg.src = '';
-            modalTitle.textContent = '';
-            modalDesc.textContent = '';
-            modalQuestion.textContent = '';
-            currentImageId = null;
+            resetModal();
         }, 300);
     }
 
-    // Evento para abrir modal al hacer clic en imágenes
-    document.querySelectorAll('.open-modal').forEach(img => {
-        img.addEventListener('click', function() {
+    // Función para resetear el modal
+    function resetModal() {
+        modalImg.src = '';
+        modalTitle.textContent = '';
+        modalCommunity.textContent = '';
+        modalDesc.textContent = '';
+        currentImageId = null;
+        isLockedImage = false;
+    }
+
+    // Evento para abrir modal
+    document.querySelectorAll('.open-modal').forEach(btn => {
+        btn.addEventListener('click', function() {
             currentImageId = this.dataset.id;
+            isLockedImage = this.dataset.locked === 'true';
+            
             modalImg.src = this.dataset.image;
-            modalImg.alt = this.alt;
-            modalTitle.textContent = this.dataset.title || '';
+            modalTitle.textContent = this.dataset.title;
+            modalCommunity.textContent = this.dataset.community || 'Naturaleza Colombiana';
             modalDesc.textContent = this.dataset.description || '';
-            modalQuestion.textContent = this.dataset.pregunta || '';
+            
+            // Mostrar botón de desbloquear solo si está bloqueada
+            unlockBtn.style.display = isLockedImage ? 'block' : 'none';
+            
             openModal();
         });
     });
 
-    // Evento para el botón de cierre
+    // Evento para cerrar modal
     closeBtn.addEventListener('click', closeModal);
 
-    // Cerrar modal al hacer clic fuera del contenido
+    // Cerrar al hacer clic fuera
     modal.addEventListener('click', function(e) {
         if (e.target === modal) {
             closeModal();
         }
     });
 
-    // Cerrar modal con la tecla ESC
+    // Cerrar con ESC
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape' && modal.style.display === 'flex') {
             closeModal();
@@ -70,7 +79,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Evento para desbloquear imagen
     unlockBtn.addEventListener('click', function() {
-        if (currentImageId) {
+        if (currentImageId && isLockedImage) {
             fetch(`/desbloquear_imagen/${currentImageId}/`, {
                 method: 'POST',
                 headers: {
@@ -85,7 +94,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             })
             .catch(error => {
-                console.error('Error al desbloquear imagen:', error);
+                console.error('Error:', error);
                 alert('Ocurrió un error al desbloquear la imagen');
             });
         }
