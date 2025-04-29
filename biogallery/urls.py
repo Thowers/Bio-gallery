@@ -19,11 +19,15 @@ from django.urls import path, include
 from .views import inicio
 from django.conf import settings
 from django.conf.urls.static import static
+from . import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', inicio, name="inicio"),
     path('bio/', include('apps.bio.urls')),
+    path('login/', views.login_view, name='login'),
+    path('registro/', views.registro_view, name='registro'),
+    path('admin-imagen/', views.admin_imagen_view, name='admin_imagen'),
 ]
 
 if settings.DEBUG:

@@ -1,0 +1,44 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+
+{% block title %}Agregar Nueva Imagen{% endblock %}
+
+
+{% block content %}
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <h2 class="text-center mb-4">Agregar Nueva Imagen</h2>
+      <form class="needs-validation" novalidate method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+          <label for="nombre" class="form-label">Nombre de la Imagen</label>
+          <input type="text" class="form-control" id="nombre" name="nombre" required>
+          <div class="invalid-feedback">Por favor ingrese el nombre de la imagen.</div>
+        </div>
+        <div class="mb-3">
+          <label for="descripcion" class="form-label">Descripción</label>
+          <textarea class="form-control" id="descripcion" name="descripcion" rows="3" required></textarea>
+          <div class="invalid-feedback">Por favor ingrese una descripción.</div>
+        </div>
+        <div class="mb-3">
+          <label for="url" class="form-label">URL de la Imagen</label>
+          <input type="text" class="form-control" id="url" name="url" required>
+          <div class="invalid-feedback">Por favor ingrese la URL de la imagen.</div>
+        </div>
+        <div class="mb-3">
+          <label for="pregunta" class="form-label">Pregunta</label>
+          <input type="text" class="form-control" id="pregunta" name="pregunta" required>
+          <div class="invalid-feedback">Por favor ingrese una pregunta.</div>
+        </div>
+        <div class="mb-3">
+          <label for="respuesta" class="form-label">Respuesta</label>
+          <input type="text" class="form-control" id="respuesta" name="respuesta" required>
+          <div class="invalid-feedback">Por favor ingrese una respuesta.</div>
+        </div>
+        <button type="submit" class="btn btn-info w-100">Guardar Imagen</button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
