@@ -3,39 +3,51 @@
 
 {% block title %}Agregar Nueva Imagen{% endblock %}
 
-
 {% block content %}
 <div class="container mt-5">
   <div class="row justify-content-center">
     <div class="col-md-8">
       <h2 class="text-center mb-4">Agregar Nueva Imagen</h2>
-      <form class="needs-validation" novalidate method="post">
+      <form method="post" action="{% url 'bio:admin_imagen' %}" class="needs-validation" novalidate>
         {% csrf_token %}
+        {{ form.non_field_errors }}
+
         <div class="mb-3">
-          <label for="nombre" class="form-label">Nombre de la Imagen</label>
-          <input type="text" class="form-control" id="nombre" name="nombre" required>
-          <div class="invalid-feedback">Por favor ingrese el nombre de la imagen.</div>
+          {{ form.nombre.label_tag }}  
+          {{ form.nombre }}
+          {{ form.nombre.errors }}
         </div>
+
         <div class="mb-3">
-          <label for="descripcion" class="form-label">Descripción</label>
-          <textarea class="form-control" id="descripcion" name="descripcion" rows="3" required></textarea>
-          <div class="invalid-feedback">Por favor ingrese una descripción.</div>
+          {{ form.descripcion.label_tag }}
+          {{ form.descripcion }}
+          {{ form.descripcion.errors }}
         </div>
+
         <div class="mb-3">
-          <label for="url" class="form-label">URL de la Imagen</label>
-          <input type="text" class="form-control" id="url" name="url" required>
-          <div class="invalid-feedback">Por favor ingrese la URL de la imagen.</div>
+          {{ form.imageurl.label_tag }}
+          {{ form.imageurl }}
+          {{ form.imageurl.errors }}
         </div>
+
         <div class="mb-3">
-          <label for="pregunta" class="form-label">Pregunta</label>
-          <input type="text" class="form-control" id="pregunta" name="pregunta" required>
-          <div class="invalid-feedback">Por favor ingrese una pregunta.</div>
+          {{ form.pregunta.label_tag }}
+          {{ form.pregunta }}
+          {{ form.pregunta.errors }}
         </div>
+
         <div class="mb-3">
-          <label for="respuesta" class="form-label">Respuesta</label>
-          <input type="text" class="form-control" id="respuesta" name="respuesta" required>
-          <div class="invalid-feedback">Por favor ingrese una respuesta.</div>
+          {{ form.respuesta.label_tag }}
+          {{ form.respuesta }}
+          {{ form.respuesta.errors }}
         </div>
+
+        <div class="form-check mb-3">
+          {{ form.bloqueada }}
+          {{ form.bloqueada.label_tag }}
+          {{ form.bloqueada.errors }}
+        </div>
+
         <button type="submit" class="btn btn-info w-100">Guardar Imagen</button>
       </form>
     </div>

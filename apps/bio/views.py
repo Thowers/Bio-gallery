@@ -1,8 +1,9 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import JsonResponse
 from django.core.paginator import Paginator
 from django.views.decorators.csrf import csrf_exempt
 from .models import Imagen
+from .forms import ImagenForm
 
 def bio(request):
     imagenes_list = Imagen.objects.all().order_by('id')
@@ -21,3 +22,13 @@ def desbloquear_imagen(request, imagen_id):
         imagen.save()
         return JsonResponse({'success': True})
     return JsonResponse({'success': False}, status=400)
+
+def admin_imagen(request):
+    if request.method == 'POST':
+        form = ImagenForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('bio:bio')
+    else:
+        form = ImagenForm()
+    return render(request, 'pages/admin_imagen.html', {'form': form})

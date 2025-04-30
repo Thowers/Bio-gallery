@@ -1,13 +1,13 @@
 from django.urls import path
-from . import views
-from .views import desbloquear_imagen
-from django.conf.urls.static import static
-from django.conf import settings
+from .views import bio, admin_imagen, desbloquear_imagen
+
+app_name = 'bio'
+
 urlpatterns = [
-    path('', views.bio, name='bio'),
-    path('desbloquear-imagen/<int:imagen_id>/',desbloquear_imagen, name='desbloquear-imagen'),
-    
-]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    path('', bio, name='bio'),                                
+    path('admin-imagen/', admin_imagen, name='admin_imagen'), 
+    path('desbloquear-imagen/<int:imagen_id>/', desbloquear_imagen, name='desbloquear_imagen'),
+]
 
 
 

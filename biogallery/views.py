@@ -11,3 +11,4 @@ def registro_view(request):
 
 def admin_imagen_view(request):
     return render(request, 'pages/admin_imagen.html')
+

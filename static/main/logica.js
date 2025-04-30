@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Evento para desbloquear imagen
     unlockBtn.addEventListener('click', function() {
         if (currentImageId && isLockedImage) {
-            fetch(`/desbloquear_imagen/${currentImageId}/`, {
+            fetch(`/bio/desbloquear-imagen/${currentImageId}/`, {
                 method: 'POST',
                 headers: {
                     'X-CSRFToken': getCookie('csrftoken'),
