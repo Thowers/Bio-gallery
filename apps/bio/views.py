@@ -2,8 +2,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.http import JsonResponse
 from django.core.paginator import Paginator
 from django.views.decorators.csrf import csrf_exempt
-from .models import Imagen
-from .forms import ImagenForm
+from .models import Imagen, Registro
+from .forms import ImagenForm, RegistroForm
 
 def bio(request):
     imagenes_list = Imagen.objects.all().order_by('id')
@@ -32,3 +32,13 @@ def admin_imagen(request):
     else:
         form = ImagenForm()
     return render(request, 'pages/admin_imagen.html', {'form': form})
+
+def admin_registro(request):
+    if request.method == 'POST':
+        form = RegistroForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('bio:bio')
+    else:
+        form = RegistroForm()
+    return render(request, 'pages/registro.html', {'form': form})
