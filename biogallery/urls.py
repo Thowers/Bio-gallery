@@ -1,4 +1,4 @@
-from django.contrib import admin
+from django.contrib import admin.
 from django.urls import path, include
 from .views import inicio, login_view
 from apps.bio.views import admin_registro

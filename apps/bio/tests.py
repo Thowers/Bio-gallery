@@ -1,4 +1,4 @@
-import pytest
+import pytest.
 from django.urls import reverse
 from apps.bio.models import Registro
 
@@ -90,3 +90,4 @@ class TestRegistroViewAndLogin:
         resp = client.get(reverse('admin_registro'))
         assert resp.status_code == 200
         assert "<form" in resp.content.decode()
+        

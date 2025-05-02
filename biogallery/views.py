@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect.
 from apps.bio.forms import LoginForm
 
 def inicio(request):

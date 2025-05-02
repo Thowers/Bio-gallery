@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function() {.
     // Elementos del DOM
     const modal = document.getElementById('imageModal');
     const modalImg = document.getElementById('modalImage');
