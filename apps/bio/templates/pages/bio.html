@@ -1,41 +1,79 @@
 {% extends "layouts/base.html" %}
 {% load static %}
 
-{% block title %}Bio-Gallery Galería{% endblock %}
+{% block title %}Bio-Gallery - Naturaleza y Comunidades{% endblock %}
 
 {% block content %}
-<!-- Contenido Principal -->
-<div class="main-content">
-    <div class="container py-4">
-        <div class="row mb-4">
-            <div class="col">
-                <h2 class="text-center">Colección de Fotos</h2>
-                <p class="text-center text-muted">Explora nuestra galería de imágenes</p>
-            </div>
-        </div>
-
-        <div class="row">
-            {% for imagen in imagenes %}
-            <div class="col-md-4">
-                <div class="thumbnail-card">
-                    <div class="thumbnail-img">
-                        {% if imagen.bloqueada %}
-                        <img src="{% static 'main/imagenes/locked.jpg' %}" alt="Imagen bloqueada"
-                            class="img-fluid open-modal" data-image="{% static 'main/imagenes/locked.jpg' %}"
-                            data-description="Imagen bloqueada" data-pregunta="¿Deseas desbloquear esta imagen?">
-                        {% else %}
-                        <img src="{{ imagen.imageurl }}" alt="{{ imagen.nombre }}" class="img-fluid open-modal"
-                            data-image="{{ imagen.imageurl }}" data-description="{{ imagen.descripcion }}"
-                            data-pregunta="{{ imagen.pregunta }}">
-                        {% endif %}
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
+<!-- comentario de prueba -->
+<!-- Hero Section con imagen de fondo en HTML -->
+<div class="hero-section">
+    <!-- Imagen de fondo cargada directamente en HTML -->
+    <img src="{% static 'main/imagenes/biogallery.png' %}" alt="Fondo naturaleza" class="hero-bg-image">
+    
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+        <h1>Naturaleza y Comunidades de Colombia</h1>
+        <p>Explora la riqueza cultural y biodiversidad de nuestro país</p>
     </div>
 </div>
 
+<!-- Main Gallery -->
+<div class="gallery-container">
+    <div class="gallery-header">
+        <h2>Colección Fotográfica</h2>
+        <p class="gallery-subtitle">Descubre la belleza de Colombia a través de nuestras imágenes</p>
+    </div>
+
+    <div class="gallery-grid">
+        {% for imagen in imagenes %}
+        <div class="gallery-item">
+            <div class="gallery-item-inner">
+                {% if imagen.bloqueada %}
+                <img src="{% static 'main/imagenes/locked.jpg' %}" alt="Imagen bloqueada" class="gallery-img">
+                <div class="locked-overlay">
+                    <i class="fas fa-lock"></i>
+                </div>
+                {% else %}
+                <img src="{{ imagen.imageurl }}" alt="{{ imagen.nombre }}" class="gallery-img">
+                {% endif %}
+                <div class="gallery-item-info">
+                    <h3>{{ imagen.nombre }}</h3>
+                    <p>{{ imagen.comunidad|default:"Naturaleza Colombiana" }}</p>
+                    <button class="btn-view open-modal"
+                            data-image="{% if imagen.bloqueada %}{% static 'main/imagenes/locked.jpg' %}{% else %}{{ imagen.imageurl }}{% endif %}"
+                            data-title="{{ imagen.nombre }}"
+                            data-description="{{ imagen.descripcion }}"
+                            data-id="{{ imagen.id }}"
+                            data-locked="{% if imagen.bloqueada %}true{% else %}false{% endif %}">
+                        Ver detalles
+                    </button>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Pagination -->
+    <div class="pagination">
+        <span class="step-links">
+            {% if imagenes.has_previous %}
+                <a href="?page=1" class="page-link">&laquo; Primera</a>
+                <a href="?page={{ imagenes.previous_page_number }}" class="page-link">Anterior</a>
+            {% endif %}
+
+            <span class="current">
+                Página {{ imagenes.number }} de {{ imagenes.paginator.num_pages }}
+            </span>
+
+            {% if imagenes.has_next %}
+                <a href="?page={{ imagenes.next_page_number }}" class="page-link">Siguiente</a>
+                <a href="?page={{ imagenes.paginator.num_pages }}" class="page-link">Última &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+</div>
+
+<<<<<<< HEAD
 <!-- Modal -->
 <div id="imageModal" class="image-modal" style="display: none;">
     <div class="modal-content-wrapper">
@@ -46,8 +84,26 @@
         <div class="modal-buttons text-center mt-3">
             <button type="button" class="btn btn-success me-2" onclick="desbloquearImagen(1)">Sí</button>
             <button type="button" class="btn btn-danger">No</button>
+=======
+<!-- Image Modal -->
+<div id="imageModal" class="image-modal">
+    <div class="modal-container">
+        <div class="modal-image-container">
+            <img id="modalImage" class="modal-image" src="" alt="">
+            <button class="close-modal">&times;</button>
+        </div>
+        <div class="modal-content">
+            <h2 id="modalTitle"></h2>
+            <div class="modal-meta">
+                <span id="modalCommunity"></span>
+            </div>
+            <div id="modalDescription" class="modal-description"></div>
+            <div class="modal-actions">
+                <button class="btn-unlock">Desbloquear</button>
+                <button class="btn-cancel">Cancelar</button>
+            </div>
+>>>>>>> 7ba9fc7162394bee3009f519591ea37b7a907d6b
         </div>
     </div>
 </div>
-
 {% endblock %}

@@ -1,0 +1,56 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+
+{% block title %}Agregar Nueva Imagen{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <h2 class="text-center mb-4">Agregar Nueva Imagen</h2>
+      <form method="post" action="{% url 'bio:admin_imagen' %}" class="needs-validation" novalidate>
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+
+        <div class="mb-3">
+          {{ form.nombre.label_tag }}  
+          {{ form.nombre }}
+          {{ form.nombre.errors }}
+        </div>
+
+        <div class="mb-3">
+          {{ form.descripcion.label_tag }}
+          {{ form.descripcion }}
+          {{ form.descripcion.errors }}
+        </div>
+
+        <div class="mb-3">
+          {{ form.imageurl.label_tag }}
+          {{ form.imageurl }}
+          {{ form.imageurl.errors }}
+        </div>
+
+        <div class="mb-3">
+          {{ form.pregunta.label_tag }}
+          {{ form.pregunta }}
+          {{ form.pregunta.errors }}
+        </div>
+
+        <div class="mb-3">
+          {{ form.respuesta.label_tag }}
+          {{ form.respuesta }}
+          {{ form.respuesta.errors }}
+        </div>
+
+        <div class="form-check mb-3">
+          {{ form.bloqueada }}
+          {{ form.bloqueada.label_tag }}
+          {{ form.bloqueada.errors }}
+        </div>
+
+        <button type="submit" class="btn btn-info w-100">Guardar Imagen</button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

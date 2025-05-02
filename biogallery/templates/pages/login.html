@@ -1,0 +1,70 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+
+{% block title %}Iniciar Sesión{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <h2 class="text-center mb-4">Iniciar Sesión</h2>
+      <form class="needs-validation" novalidate method="post">
+        {% csrf_token %}
+
+        {# Mensaje de error global #}
+        {% if form.non_field_errors %}
+          <div class="alert alert-danger">
+            {{ form.non_field_errors.0 }}
+          </div>
+        {% endif %}
+
+        <div class="mb-3">
+          <label for="username" class="form-label">{{ form.username.label }}</label>
+          {{ form.username }}
+          {% if form.username.errors %}
+            <div class="invalid-feedback" style="display:block;">
+              {{ form.username.errors.0 }}
+            </div>
+          {% else %}
+            <div class="invalid-feedback">
+              Por favor ingrese su nombre de usuario.
+            </div>
+          {% endif %}
+        </div>
+
+        <div class="mb-3">
+          <label for="password" class="form-label">{{ form.password.label }}</label>
+          {{ form.password }}
+          {% if form.password.errors %}
+            <div class="invalid-feedback" style="display:block;">
+              {{ form.password.errors.0 }}
+            </div>
+          {% else %}
+            <div class="invalid-feedback">
+              Por favor ingrese su contraseña.
+            </div>
+          {% endif %}
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100">Ingresar</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    'use strict';
+    const forms = document.querySelectorAll('.needs-validation');
+    Array.from(forms).forEach(form => {
+      form.addEventListener('submit', event => {
+        if (!form.checkValidity()) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        form.classList.add('was-validated');
+      }, false);
+    });
+  })();
+</script>
+{% endblock %}
