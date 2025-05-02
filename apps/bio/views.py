@@ -8,27 +8,15 @@ from .forms import ImagenForm, RegistroForm
 def bio(request):
     imagenes_list = Imagen.objects.all().order_by('id')
     paginator = Paginator(imagenes_list, 12)  # Muestra 10 imágenes por página
-    
+
     page_number = request.GET.get('page')
     imagenes = paginator.get_page(page_number)
-    
+
     return render(request, 'pages/bio.html', {'imagenes': imagenes})
 
 @csrf_exempt  # Solo si tienes problemas con CSRF
 def desbloquear_imagen(request, imagen_id):
     if request.method == 'POST':
-<<<<<<< HEAD
-        
-        imagen = Imagen.objects.get(id=imagen_id)
-        
-        return JsonResponse({
-            'status': 'ok',
-            'imagen_url': imagen.imageurl,  
-            'descripcion': imagen.descripcion  
-        })
-    return JsonResponse({'status': 'error'})
-
-=======
         imagen = get_object_or_404(Imagen, id=imagen_id)
         imagen.bloqueada = False
         imagen.save()
@@ -54,4 +42,3 @@ def admin_registro(request):
     else:
         form = RegistroForm()
     return render(request, 'pages/registro.html', {'form': form})
->>>>>>> 7ba9fc7162394bee3009f519591ea37b7a907d6b
