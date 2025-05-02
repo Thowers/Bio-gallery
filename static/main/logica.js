@@ -38,4 +38,27 @@ document.addEventListener('DOMContentLoaded', function() {
             closeModal();
         }
     });
+    function desbloquearImagen(imagenId) {
+        fetch(`/desbloquear/${imagenId}/`, {
+            method: 'POST'
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'ok') {
+                // Mostrar el modal
+                const modal = document.getElementById('imageModal');
+                modal.style.display = 'block';
+    
+                // Cambiar la imagen y la descripción
+                document.getElementById('modalImage').src = data.imageurl;
+                document.getElementById('modalDescription').innerText = data.descripcion || '';
+    
+                // Opcional: ocultar la pregunta
+                document.getElementById('modalQuestion').style.display = 'none';
+            } else {
+                alert('Error al desbloquear');
+            }
+        });
+    }
+    
 });

@@ -7,7 +7,14 @@ def bio(request):
     return render(request, 'pages/bio.html', {'imagenes': imagenes})
 
 def desbloquear_imagen(request, imagen_id):
-    imagen = get_object_or_404(Imagen, id=imagen_id)
-    imagen.bloqueada = False
-    imagen.save()
-    return JsonResponse({'success': True})
+    if request.method == 'POST':
+        
+        imagen = Imagen.objects.get(id=imagen_id)
+        
+        return JsonResponse({
+            'status': 'ok',
+            'imagen_url': imagen.imageurl,  
+            'descripcion': imagen.descripcion  
+        })
+    return JsonResponse({'status': 'error'})
+
