@@ -1,5 +1,5 @@
 from django import forms
-from django.contrib.auth.hashers import make_password
+from django.contrib.auth.hashers import make_password, check_password
 from .models import Imagen, Registro
 
 class ImagenForm(forms.ModelForm):
@@ -38,3 +38,36 @@ class RegistroForm(forms.ModelForm):
         if commit:
             registro.save()
         return registro
+    
+class LoginForm(forms.Form):
+    username = forms.CharField(
+        max_length=90,
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+            'id': 'username',
+            'required': True,
+            'placeholder': 'Usuario'
+        })
+    )
+    password = forms.CharField(
+        widget=forms.PasswordInput(attrs={
+            'class': 'form-control',
+            'id': 'password',
+            'required': True,
+            'placeholder': 'Contraseña'
+        })
+    )
+
+    def clean(self):
+        cleaned = super().clean()
+        uname = cleaned.get('username')
+        pwd   = cleaned.get('password')
+        if uname and pwd:
+            try:
+                user = Registro.objects.get(usuario__iexact=uname)
+            except Registro.DoesNotExist:
+                raise forms.ValidationError("Usuario o contraseña incorrectos.")
+            if not check_password(pwd, user.password):
+                raise forms.ValidationError("Usuario o contraseña incorrectos.")
+            cleaned['user_obj'] = user
+        return cleaned
