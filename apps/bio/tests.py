@@ -1,4 +1,4 @@
-import pytest.
+import pytest
 from django.urls import reverse
 from apps.bio.models import Registro
 

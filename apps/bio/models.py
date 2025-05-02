@@ -1,4 +1,4 @@
-from django.db import models.
+from django.db import models
 
 class Imagen(models.Model):
     nombre = models.CharField(max_length=90)

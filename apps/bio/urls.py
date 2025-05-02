@@ -1,4 +1,4 @@
-from django.urls import path.
+from django.urls import path
 from .views import bio, admin_imagen, desbloquear_imagen, admin_registro
 
 app_name = 'bio'
