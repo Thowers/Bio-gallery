@@ -31,6 +31,12 @@ class RegistroForm(forms.ModelForm):
         if Registro.objects.filter(email__iexact=email).exists():
             raise forms.ValidationError("Este correo ya está registrado.")
         return email
+    
+    def clean_password(self):
+        pwd = self.cleaned_data.get('password', '')
+        if len(pwd) < 8:
+            raise forms.ValidationError("La contrasena debe tener al menos 8 caracteres.")
+        return pwd
 
     def save(self, commit=True):
         registro = super().save(commit=False)
@@ -66,8 +72,8 @@ class LoginForm(forms.Form):
             try:
                 user = Registro.objects.get(usuario__iexact=uname)
             except Registro.DoesNotExist:
-                raise forms.ValidationError("Usuario o contraseña incorrectos.")
+                raise forms.ValidationError("Usuario o contrasena incorrectos.")
             if not check_password(pwd, user.password):
-                raise forms.ValidationError("Usuario o contraseña incorrectos.")
+                raise forms.ValidationError("Usuario o contrasena incorrectos.")
             cleaned['user_obj'] = user
         return cleaned
