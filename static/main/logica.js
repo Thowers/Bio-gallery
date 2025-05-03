@@ -120,29 +120,26 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 document.addEventListener('DOMContentLoaded', () => {
-    // Inicializa el contador de tiempo y el tiempo de espera
     let timeCounter = 0;
-    let waitTime = 1000; // Tiempo de espera inicial en milisegundos (1 segundo)
-
-    // Obtén el botón y el contenedor de tiempo
+    let waitTime = 1000; 
     const btnTime = document.querySelector('.btn-time');
+    const btnUnlock = document.querySelector('.btn-unlock');
     const modalContent = document.querySelector('.modal-content');
-
-    // Crea un elemento para mostrar el tiempo acumulado
     const timeDisplay = document.createElement('div');
     timeDisplay.className = 'time-display';
     timeDisplay.textContent = 'Tiempo acumulado: 0 segundos';
     modalContent.appendChild(timeDisplay);
 
-    // Agrega un evento click al botón
+    // Agrega un evento click al botón "Time"
     btnTime.addEventListener('click', () => {
         timeCounter += waitTime / 1000; 
         timeDisplay.textContent = `Tiempo acumulado: ${timeCounter} segundos`;
 
-        // Desactiva el botón por el tiempo de espera actual
         btnTime.disabled = true;
+        btnUnlock.disabled = true;
         setTimeout(() => {
             btnTime.disabled = false;
+            btnUnlock.disabled = false;
         }, waitTime);
         waitTime *= 2;
     });
