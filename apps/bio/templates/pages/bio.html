@@ -44,7 +44,12 @@
                             data-title="{{ imagen.nombre }}"
                             data-description="{{ imagen.descripcion }}"
                             data-id="{{ imagen.id }}"
-                            data-locked="{% if imagen.bloqueada %}true{% else %}false{% endif %}">
+                            data-locked="{% if imagen.bloqueada %}true{% else %}false{% endif %}"
+                            data-pregunta="{{ imagen.pregunta }}"
+                            data-respuesta="{{ imagen.respuesta }}"
+                            data-opcion1="{{ imagen.opcion1 }}"
+                            data-opcion2="{{ imagen.opcion2 }}"
+                            data-opcion3="{{ imagen.opcion3 }}">
                         Ver detalles
                     </button>
                 </div>
@@ -86,10 +91,13 @@
                 <span id="modalCommunity"></span>
             </div>
             <div id="modalDescription" class="modal-description"></div>
+            <div id="modalPregunta" class="modal-pregunta"></div>
+            <div id="modalOpciones" class="modal-opciones"></div>
             <div class="modal-actions">
-                <button class="btn-unlock">Desbloquear</button>
-                <button class="btn-cancel">Cancelar</button>
-                <button class="btn-time">Time</button>
+                <button class="btn-opcion" id="btn-opcion-1">Opción 1</button>
+                <button class="btn-opcion" id="btn-opcion-2">Opción 2</button>
+                <button class="btn-opcion" id="btn-opcion-3">Opción 3</button>
+                <button class="btn-opcion" id="btn-opcion-4">Opción 4</button>
             </div>
         </div>
     </div>

@@ -5,7 +5,7 @@ from .models import Imagen, Registro
 class ImagenForm(forms.ModelForm):
     class Meta:
         model = Imagen
-        fields = ['nombre', 'descripcion', 'imageurl', 'pregunta', 'respuesta', 'bloqueada']
+        fields = ['nombre', 'descripcion', 'imageurl', 'pregunta', 'respuesta', 'opcion1','opcion2','opcion3', 'bloqueada']
         widgets = {
             'bloqueada': forms.CheckboxInput(),
         }
