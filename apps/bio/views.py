@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.http import JsonResponse
 from django.core.paginator import Paginator
 from django.views.decorators.csrf import csrf_exempt
-from .models import Imagen, Registro
+from .models import Imagen, Registro, ImagenDesbloqueada
 from .forms import ImagenForm, RegistroForm
 
 def bio(request):
@@ -21,6 +21,8 @@ def desbloquear_imagen(request, imagen_id):
         imagen.bloqueada = False
         imagen.save()
         return JsonResponse({'success': True})
+    if respuesta_correcta:
+        ImagenDesbloqueada.objects.get_or_create(usuario=request.user, imagen=imagen)
     return JsonResponse({'success': False}, status=400)
 
 def admin_imagen(request):
@@ -42,3 +44,15 @@ def admin_registro(request):
     else:
         form = RegistroForm()
     return render(request, 'pages/registro.html', {'form': form})
+
+def galeria(request):
+    imagenes = Imagen.objects.all()
+    desbloqueadas = set(
+        ImagenDesbloqueada.objects.filter(usuario=request.user).values_list('imagen_id', flat=True)
+    )
+    for imagen in imagenes:
+        imagen.bloqueada = imagen.id not in desbloqueadas
+    return render(request, 'pages/bio.html', {'imagenes': imagenes})
+
+
+

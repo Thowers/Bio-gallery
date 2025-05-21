@@ -22,3 +22,13 @@ class Registro(models.Model):
 
     def __str__(self):
         return self.usuario
+
+from django.contrib.auth.models import User
+
+class ImagenDesbloqueada(models.Model):
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
+    imagen = models.ForeignKey(Imagen, on_delete=models.CASCADE)
+    fecha = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('usuario', 'imagen')
