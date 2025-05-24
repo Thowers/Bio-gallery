@@ -6,14 +6,13 @@ from django.conf import settings
 from django.conf.urls.static import static
 from . import views
 
-
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', inicio, name="inicio"),
-    path('login/', views.login_view, name='login'),
+    path('', views.inicio, name="inicio"),  # Corregido: inicio en la raíz
+    path('login/', views.login_view, name='login'),  # Corregido: login en /login/
     path('registro/', admin_registro, name='admin_registro'),
+    path('logout/', views.logout_view, name='logout'),
     path('bio/', include(('apps.bio.urls', 'bio'), namespace='bio')),            
-    
 ]
 
 if settings.DEBUG:
