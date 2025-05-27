@@ -27,13 +27,6 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt me-1"></i> Cerrar sesión</a>
                     </li>
-                {% else %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'login' %}"><i class="fa-solid fa-seedling"></i> Login</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'admin_registro' %}"><i class="fa-solid fa-user-plus"></i> Registro</a>
-                    </li>
                 {% endif %}
             </ul>
         </div>
