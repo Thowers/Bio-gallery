@@ -24,7 +24,8 @@ def auth_context(request):
                     self.email = real_user.email
                     self.id = real_user.id
                     self.is_authenticated = True
-                    
+                    self.is_staff = getattr(real_user, 'is_staff', False)
+            
             context['user'] = MockUser(user)
             
         except Registro.DoesNotExist:

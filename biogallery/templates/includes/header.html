@@ -17,17 +17,14 @@
                     <a class="nav-link" href="/bio/"><i class="fas fa-compass me-1"></i> Galería</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/bio/admin-imagen/"><i class="fa-solid fa-camera-rotate"></i> Agregar Imagen</a>
+                    {% if user.is_authenticated and user.is_staff %}
+                        <a class="nav-link" href="/bio/admin-imagen/"><i class="fa-solid fa-camera-rotate"></i> Agregar Imagen</a>
+                    {% endif %}
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt me-1"></i> Cerrar sesión</a>
+                </li>       
 
-                {% if user.is_authenticated %}
-                    <li class="nav-item">                        
-                            <a class="nav-link" href="#"><i class="fas fa-user-circle me-1"></i>{{ user.username }}</a>                        
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt me-1"></i> Cerrar sesión</a>
-                    </li>
-                {% endif %}
             </ul>
         </div>
     </div>
