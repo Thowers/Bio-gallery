@@ -1,67 +1,80 @@
-{% extends "layouts/base.html" %}
+{% extends "layouts/base_no_nav.html" %}
 {% load static %}
 
 {% block title %}Iniciar Sesión{% endblock %}
 
 {% block content %}
-<div class="container mt-5">
-  <div class="row justify-content-center">
-    <div class="col-md-6">
-      <h2 class="text-center mb-4">Iniciar Sesión</h2>
-      
-      {# Mostrar mensajes de éxito/error #}
-      {% if messages %}
-        {% for message in messages %}
-          <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
-            {{ message }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+<div class="container-fluid vh-100 d-flex align-items-center justify-content-center">
+  <div class="row w-100">
+    <div class="col-md-6 col-lg-4 mx-auto">
+      <div class="card shadow">
+        <div class="card-body p-5">
+          <div class="text-center mb-4">
+            <i class="fas fa-camera-retro fa-3x text-primary mb-3"></i>
+            <h2 class="fw-bold">Bio-Gallery</h2>
+            <p class="text-muted">Inicia sesión en tu cuenta</p>
           </div>
-        {% endfor %}
-      {% endif %}
-
-      <form class="needs-validation" novalidate method="post">
-        {% csrf_token %}
-
-        {# Mensaje de error global #}
-        {% if form.non_field_errors %}
-          <div class="alert alert-danger">
-            {{ form.non_field_errors.0 }}
-          </div>
-        {% endif %}
-
-        <div class="mb-3">
-          <label for="username" class="form-label">{{ form.username.label }}</label>
-          {{ form.username }}
-          {% if form.username.errors %}
-            <div class="invalid-feedback" style="display:block;">
-              {{ form.username.errors.0 }}
-            </div>
-          {% else %}
-            <div class="invalid-feedback">
-              Por favor ingrese su nombre de usuario.
-            </div>
+          
+          {# Mostrar mensajes de éxito/error #}
+          {% if messages %}
+            {% for message in messages %}
+              <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+              </div>
+            {% endfor %}
           {% endif %}
-        </div>
 
-        <div class="mb-3">
-          <label for="password" class="form-label">{{ form.password.label }}</label>
-          {{ form.password }}
-          {% if form.password.errors %}
-            <div class="invalid-feedback" style="display:block;">
-              {{ form.password.errors.0 }}
-            </div>
-          {% else %}
-            <div class="invalid-feedback">
-              Por favor ingrese su contraseña.
-            </div>
-            <div>
-              <p>¿No tienes cuenta? <a href="{% url 'admin_registro' %}">Regístrate aquí</a></p>
-            </div>
-          {% endif %}
-        </div>
+          <form class="needs-validation" novalidate method="post">
+            {% csrf_token %}
 
-        <button type="submit" class="btn btn-primary w-100">Ingresar</button>
-      </form>
+            {# Mensaje de error global #}
+            {% if form.non_field_errors %}
+              <div class="alert alert-danger">
+                {{ form.non_field_errors.0 }}
+              </div>
+            {% endif %}
+
+            <div class="mb-3">
+              <label for="username" class="form-label">{{ form.username.label }}</label>
+              <div class="input-group">
+                <span class="input-group-text"><i class="fas fa-user"></i></span>
+                {{ form.username }}
+              </div>
+              {% if form.username.errors %}
+                <div class="invalid-feedback" style="display:block;">
+                  {{ form.username.errors.0 }}
+                </div>
+              {% endif %}
+            </div>
+
+            <div class="mb-3">
+              <label for="password" class="form-label">{{ form.password.label }}</label>
+              <div class="input-group">
+                <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                {{ form.password }}
+              </div>
+              {% if form.password.errors %}
+                <div class="invalid-feedback" style="display:block;">
+                  {{ form.password.errors.0 }}
+                </div>
+              {% endif %}
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100 mb-3">
+              <i class="fas fa-sign-in-alt me-2"></i>Ingresar
+            </button>
+            
+            <div class="text-center">
+              <p class="mb-0">¿No tienes cuenta? 
+                <a href="{% url 'admin_registro' %}" class="text-decoration-none">
+                  <strong>Regístrate aquí</strong>
+                </a>
+              </p>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
   </div>
 </div>

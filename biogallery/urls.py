@@ -8,8 +8,8 @@ from . import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.inicio, name="inicio"),  # Corregido: inicio en la raíz
-    path('login/', views.login_view, name='login'),  # Corregido: login en /login/
+    path('', views.login_view, name='login'),  # Login como página principal
+    path('inicio/', views.inicio, name="inicio"),  # Inicio ahora en /inicio/
     path('registro/', admin_registro, name='admin_registro'),
     path('logout/', views.logout_view, name='logout'),
     path('bio/', include(('apps.bio.urls', 'bio'), namespace='bio')),            
