@@ -29,7 +29,7 @@ DEBUG = True
 ALLOWED_HOSTS = [".railway.app", "localhost", "127.0.0.1"]
 
 CSRF_TRUSTED_ORIGINS = [
-    'https://bio-gallery-production.up.railway.app'
+    'http://bio-gallery-production.up.railway.app'
 ]
 
 # Application definition
