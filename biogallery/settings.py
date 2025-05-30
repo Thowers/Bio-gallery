@@ -26,8 +26,11 @@ SECRET_KEY = 'django-insecure-dapjn8g-7i_8fo_dluws!bbjpcuh1yt)7v$5h+yp1ekwefu2u&
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [".railway.app", "localhost", "127.0.0.1"]
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://bio-gallery-production.up.railway.app'
+]
 
 # Application definition
 
@@ -124,6 +127,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
