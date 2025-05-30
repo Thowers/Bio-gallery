@@ -27,11 +27,6 @@ SECRET_KEY = 'django-insecure-dapjn8g-7i_8fo_dluws!bbjpcuh1yt)7v$5h+yp1ekwefu2u&
 DEBUG = True
 
 ALLOWED_HOSTS = [".railway.app", "localhost", "127.0.0.1"]
-
-CSRF_TRUSTED_ORIGINS = [
-    'http://bio-gallery-production.up.railway.app'
-]
-
 # Application definition
 
 INSTALLED_APPS = [
